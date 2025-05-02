@@ -1,12 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { AtStrategy, RtStrategy } from './strategies';
-import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
+import { LocalStrategy } from './strategies/local.strategy';
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
+import { SessionSerializer } from './session.serializer';
 
 @Module({
-  imports: [JwtModule.register({})],
-  controllers: [AuthController],
-  providers: [AuthService, AtStrategy, RtStrategy],
+  imports: [
+    PassportModule.register({
+      defaultStrategy: 'local',
+      property: 'user',
+      session: true,
+    }),
+  ],
+  providers: [LocalStrategy, LocalAuthGuard, SessionSerializer],
+  controllers: [],
 })
 export class AuthModule {}
