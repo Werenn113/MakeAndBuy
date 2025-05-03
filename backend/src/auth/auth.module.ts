@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard';
-import { SessionSerializer } from './session.serializer';
+import { CookieSerializer } from './cookie-serializer';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { SessionSerializer } from './session.serializer';
       session: true,
     }),
   ],
-  providers: [LocalStrategy, LocalAuthGuard, SessionSerializer],
+  providers: [LocalStrategy, LocalAuthGuard, CookieSerializer],
   controllers: [],
 })
 export class AuthModule {}

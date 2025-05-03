@@ -2,16 +2,34 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import * as session from 'express-session';
 import * as passport from 'passport';
+import Redis from 'ioredis';
+import { RedisStore } from 'connect-redis';
+import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
+  const redisClient = new Redis(redisUrl, {});
+  redisClient.connect().catch(console.error);
+
+  const redisStore = new RedisStore({
+    client: redisClient,
+    ttl: 86400 * 30, //1 jour
+  });
+
+  app.set('trust proxy', 1);
   app.use(
     session({
-      secret: 'your-secret-key', // Required for express-session
+      store: redisStore,
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: 3600000 }, // Set to true if using HTTPS
+      secret: process.env.SESSION_SECRET || '123',
+      cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30, //30 days
+        sameSite: 'lax',
+        secure: false,
+      },
     }),
   );
 

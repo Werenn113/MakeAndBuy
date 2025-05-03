@@ -1,0 +1,26 @@
+[
+    {
+        "commandline": "powershell -NoExit -c \"C:\\_makeandbuy\\starter\\run_backend.ps1\"",
+        "hidden": true,
+        "name": "mab_backend",
+        "startingDirectory": "C:\\_makeandbuy\\backend"
+    },
+    {
+        "commandline": "powershell -NoExit -c \"Write-Host 'Attente du backend...'; Start-Sleep -Seconds 10; npx prisma studio\"",
+        "hidden": true,
+        "name": "mab_prismastudio",
+        "startingDirectory": "C:\\_makeandbuy\\backend"
+    },
+    {
+        "commandline": "powershell -NoExit -c \"npm run dev\"",
+        "hidden": true,
+        "name": "mab_frontend",
+        "startingDirectory": "C:\\_makeandbuy\\frontend"
+    },
+    {
+        "commandline": "powershell -NoExit",
+        "hidden": true,
+        "name": "mab_dir",
+        "startingDirectory": "C:\\_makeandbuy"
+    }
+]

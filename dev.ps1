@@ -8,12 +8,14 @@ $choix = Read-Host "Choix (1/2/3)"
 switch ($choix) {
     "1" {
         wt --maximized new-tab -p mab_backend `; split-pane -V -p mab_prismastudio
+        Start-Process powershell -ArgumentList '-c "C:\_makeandbuy\starter\run_bruno_redis.ps1"' -WindowStyle Hidden
     }
     "2" {
         wt --maximized new-tab -p mab_frontend
     }
     "3" {
         wt --maximized new-tab -p mab_backend `; split-pane -V -p mab_prismastudio `; move-focus left `; split-pane -H -p mab_frontend `; move-focus up `; move-focus right `; split-pane -H -p mab_dir
+        Start-Process powershell -ArgumentList '-c "C:\_makeandbuy\starter\run_bruno_redis.ps1"' -WindowStyle Hidden
     }
     default {
         Write-Host "Choix invalide"
