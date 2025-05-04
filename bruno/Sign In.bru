@@ -5,14 +5,14 @@ meta {
 }
 
 post {
-  url: http://localhost:3000/auth/local/signin
+  url: {{url}}/auth/local/signin
   body: json
   auth: none
 }
 
 body:json {
   {
-    "email":"toto@example.com",
+    "email":"john@example.com",
     "password":"123456"
   }
 }
