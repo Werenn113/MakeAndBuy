@@ -1,15 +1,11 @@
 meta {
   name: Logout
   type: http
-  seq: 4
+  seq: 3
 }
 
-get {
-  url: {{url}}/auth/protected
+post {
+  url: {{url}}/auth/logout
   body: none
-  auth: bearer
-}
-
-auth:bearer {
-  token: 
+  auth: inherit
 }
