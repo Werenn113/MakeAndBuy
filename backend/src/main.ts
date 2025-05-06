@@ -11,7 +11,6 @@ async function bootstrap() {
 
   const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379';
   const redisClient = new Redis(redisUrl, {});
-  redisClient.connect().catch(console.error);
 
   const redisStore = new RedisStore({
     client: redisClient,
